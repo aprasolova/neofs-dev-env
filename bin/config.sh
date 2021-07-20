@@ -25,7 +25,7 @@ ADDR=`cat ${WALLET} | jq -r .accounts[2].address`
 
 # Change config value in side chain
 echo "Changing ${KEY} configration value to ${VALUE}"
-./bin/passwd.exp ${PASSWD} ${NEOGO} contract invokefunction \
+expect -f ./bin/passwd.exp ${PASSWD} ${NEOGO} contract invokefunction \
 -w ${WALLET_IMG} \
 -a ${ADDR} \
 -r http://morph_chain.${LOCAL_DOMAIN}:30333 \
