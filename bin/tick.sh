@@ -5,7 +5,7 @@
 . services/ir/.ir.env
 
 # NeoGo binary path.
-NEOGO="${NEOGO:-docker exec -it main_chain neo-go}"
+NEOGO="${NEOGO:-docker exec  main_chain neo-go}"
 
 # Wallet files to change config value
 WALLET="${WALLET:-services/chain/node-wallet.json}"
@@ -19,7 +19,7 @@ ADDR=`cat ${WALLET} | jq -r .accounts[2].address`
 
 echo hui
 # Fetch current epoch value
-EPOCH=`${NEOGO} contract testinvokefunction -r \
+EPOCH=`docker exec  main_chain neo-go contract testinvokefunction -r \
 http://morph_chain.${LOCAL_DOMAIN}:30333 \
 ${NEOFS_IR_CONTRACTS_NETMAP} \
 epoch | grep 'value' | awk -F'"' '{ print $4 }'`
@@ -27,7 +27,7 @@ epoch | grep 'value' | awk -F'"' '{ print $4 }'`
 echo zalupa
 
 echo "Updating NeoFS epoch to $((EPOCH+1))"
-./bin/passwd.exp ${PASSWD} ${NEOGO} contract invokefunction \
+./bin/passwd.exp ${PASSWD} docker exec -it main_chain neo-go contract invokefunction \
 -w ${WALLET_IMG} \
 -a ${ADDR} \
 -r http://morph_chain.${LOCAL_DOMAIN}:30333 \
