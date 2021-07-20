@@ -34,5 +34,7 @@ setConfig bytes:beefcafe \
 string:${KEY} \
 int:${VALUE} -- ${ADDR} || exit 1
 
+echo pizda
+
 # Update epoch to apply new configuration value
 ./bin/tick.sh

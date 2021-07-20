@@ -17,11 +17,14 @@ PASSWD="one"
 # Internal variables
 ADDR=`cat ${WALLET} | jq -r .accounts[2].address`
 
+echo hui
 # Fetch current epoch value
 EPOCH=`${NEOGO} contract testinvokefunction -r \
 http://morph_chain.${LOCAL_DOMAIN}:30333 \
 ${NEOFS_IR_CONTRACTS_NETMAP} \
 epoch | grep 'value' | awk -F'"' '{ print $4 }'`
+
+echo zalupa
 
 echo "Updating NeoFS epoch to $((EPOCH+1))"
 ./bin/passwd.exp ${PASSWD} ${NEOGO} contract invokefunction \
